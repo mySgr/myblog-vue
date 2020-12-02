@@ -6,6 +6,8 @@
 server/lib
 server/web
 
+out/
+
 .DS_Store
 node_modules
 /dist
