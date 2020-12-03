@@ -18,10 +18,12 @@ import java.io.IOException;
 public class PostAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Part cover = req.getPart("cover");
+        System.out.println(cover);
         String author = req.getParameter("author");
         String title = req.getParameter("title");
         String content = req.getParameter("content");
-        Part cover = req.getPart("cover");
+
         System.out.println(cover);
         try {
             //文件的保存名
@@ -31,7 +33,7 @@ public class PostAddServlet extends HttpServlet {
             cover.write(getServletContext().getRealPath("/img/") + fileName);
 
             Post post = new PostDAO().addPost(new Post(title, content, author, fileName));
-            post=new PostDAO().getPost(post.getId());
+            post = new PostDAO().getPost(post.getId());
             //把id传给客户端
             resp.getWriter().write(new Gson().toJson(post));
 
